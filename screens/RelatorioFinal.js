@@ -1,0 +1,278 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  SafeAreaView,
+} from "react-native";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+
+const gerarTokenRelatorio = () => {
+  const timestamp = Date.now().toString().slice(-6);
+  const randomNum = Math.floor(Math.random() * 900) + 100;
+  return `NU-${timestamp}-${randomNum}`;
+};
+
+const COLORS = {
+  PRIMARY: "#002366",
+  ACCENT: "#007bff",
+  BACKGROUND: "#FFFFFF",
+  CARD: "#F5F5F5",
+  SUCCESS: "#28a745",
+  TEXT: "#000000",
+  WARNING: "#ffc107",
+};
+
+const ItemCounter = ({ count, label, icon }) => (
+  <View style={styles.counterContainer}>
+    <FontAwesome
+      name={icon}
+      size={20}
+      color={COLORS.PRIMARY}
+      style={{ marginRight: 8 }}
+    />
+    <Text style={styles.counterText}>
+      {label}: <Text style={{ fontWeight: "bold" }}>{count}</Text>
+    </Text>
+  </View>
+);
+
+export default function ApreensoesScreen({ navigation, route }) {
+  const dadosAnteriores = route.params || {};
+  const dadosApreensoesAnteriores = dadosAnteriores.apreensoes || {};
+  const armas = dadosApreensoesAnteriores.armas || [];
+  const drogas = dadosApreensoesAnteriores.drogas || [];
+  const municoes = dadosApreensoesAnteriores.municoes || [];
+  const objetos = dadosApreensoesAnteriores.objetos || [];
+  const dinheiro = dadosApreensoesAnteriores.dinheiro || [];
+  const veiculos = dadosApreensoesAnteriores.veiculos || [];
+  const policiais = dadosApreensoesAnteriores.policiais || [];
+  const [historico, setHistorico] = useState(
+    dadosApreensoesAnteriores.historico || ""
+  );
+
+  const handleNext = () => {
+    if (historico.length < 50) {
+      Alert.alert(
+        "Atenção",
+        "O histórico deve ter no mínimo 50 caracteres para detalhamento completo da ocorrência."
+      );
+      return;
+    }
+
+    const novoToken = gerarTokenRelatorio();
+    const dadosApreensoesFinais = {
+      ...dadosApreensoesAnteriores,
+      tokenRelatorio: novoToken,
+    };
+
+    const todosOsDadosAcumulados = {
+      ...dadosAnteriores,
+      apreensoes: dadosApreensoesFinais,
+    };
+
+    navigation.navigate("FinalRelatorio", todosOsDadosAcumulados);
+  };
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Text style={styles.title}>4. Histórico e Resumo da Ocorrência</Text>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <View style={styles.summaryCard}>
+            <Text style={styles.summaryTitle}>Itens Registrados:</Text>
+
+            <View style={styles.countersRow}>
+              <ItemCounter
+                count={armas.length}
+                label="Armas"
+                icon="crosshairs"
+              />
+              <ItemCounter
+                count={municoes.length}
+                label="Munições"
+                icon="circle-o"
+              />
+            </View>
+
+            <View style={styles.countersRow}>
+              <ItemCounter count={drogas.length} label="Drogas" icon="flask" />
+              <ItemCounter
+                count={dinheiro.length}
+                label="Dinheiro"
+                icon="money"
+              />
+            </View>
+
+            <View style={styles.countersRow}>
+              <ItemCounter count={objetos.length} label="Objetos" icon="cube" />
+              <ItemCounter
+                count={veiculos.length}
+                label="Veículos"
+                icon="car"
+              />
+            </View>
+
+            <View style={styles.countersRow}>
+              <ItemCounter
+                count={policiais.length}
+                label="Policiais"
+                icon="user"
+              />
+            </View>
+          </View>
+          <View style={styles.historicoCard}>
+            <View style={styles.headerHistorico}>
+              <MaterialCommunityIcons
+                name="pencil-ruler"
+                size={24}
+                color={COLORS.PRIMARY}
+              />
+              <Text style={styles.sectionTitle}>
+                Histórico / Narrativa do Fato
+              </Text>
+            </View>
+
+            <Text style={styles.label}>
+              Descreva o desenrolar da ocorrência detalhadamente (quem, o quê,
+              como, onde, quando):
+            </Text>
+            <TextInput
+              style={styles.historicoInput}
+              value={historico}
+              onChangeText={setHistorico}
+              multiline
+              numberOfLines={8}
+              placeholder="Ex: No patrulhamento pela Rua X, a guarnição avistou indivíduo em atitude suspeita..."
+            />
+            <Text style={styles.charCount}>
+              Caracteres: {historico.length}/50 (Mínimo)
+            </Text>
+          </View>
+        </ScrollView>
+        <TouchableOpacity style={styles.finalButton} onPress={handleNext}>
+          <FontAwesome name="file-text-o" size={20} color={COLORS.BACKGROUND} />
+          <Text style={styles.finalButtonText}>GERAR RELATÓRIO FINAL</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: COLORS.BACKGROUND,
+  },
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  },
+  scrollContent: {
+    paddingBottom: 20,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 15,
+    color: COLORS.PRIMARY,
+    borderBottomWidth: 2,
+    borderBottomColor: COLORS.PRIMARY,
+    paddingBottom: 5,
+  },
+  summaryCard: {
+    backgroundColor: COLORS.CARD,
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+    borderLeftWidth: 5,
+    borderLeftColor: COLORS.ACCENT,
+  },
+  summaryTitle: {
+    fontSize: 17,
+    fontWeight: "bold",
+    color: COLORS.PRIMARY,
+    marginBottom: 10,
+  },
+  historicoCard: {
+    backgroundColor: COLORS.CARD,
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: COLORS.WARNING,
+  },
+  headerHistorico: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 5,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: COLORS.TEXT,
+    marginLeft: 10,
+  },
+  countersRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10,
+  },
+  counterContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 8,
+    backgroundColor: COLORS.BACKGROUND,
+    borderRadius: 5,
+    width: "48%",
+    justifyContent: "flex-start",
+  },
+  counterText: {
+    fontSize: 15,
+    color: COLORS.TEXT,
+  },
+  label: {
+    fontSize: 15,
+    fontWeight: "600",
+    marginTop: 10,
+    marginBottom: 5,
+  },
+  historicoInput: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 10,
+    textAlignVertical: "top",
+    borderRadius: 5,
+    minHeight: 180,
+    backgroundColor: COLORS.BACKGROUND,
+    fontSize: 16,
+  },
+  charCount: {
+    fontSize: 14,
+    color: COLORS.TEXT,
+    textAlign: "right",
+    marginTop: 5,
+  },
+  finalButton: {
+    flexDirection: "row",
+    backgroundColor: COLORS.SUCCESS,
+    padding: 18,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    marginBottom: 10,
+    elevation: 5,
+  },
+  finalButtonText: {
+    color: COLORS.BACKGROUND,
+    fontSize: 18,
+    fontWeight: "bold",
+    marginLeft: 10,
+  },
+});
