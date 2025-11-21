@@ -89,19 +89,18 @@ const tiposRop = ["Prisão em Flagrante", "Ocorrência Simples", "Apoio"];
 const eventos = ["Blitz", "Patrulhamento", "Mandado de Busca"];
 
 const COLORS = {
-  BACKGROUND: "#FFFFFF", 
-  TEXT: "#000000", 
-  SUB_TEXT: "#777777", 
-  CARD: "#F0F0F0", 
-  PRIMARY: "#002366", 
+  BACKGROUND: "#FFFFFF",
+  TEXT: "#000000",
+  SUB_TEXT: "#777777",
+  CARD: "#F0F0F0",
+  PRIMARY: "#002366",
   BUTTON_TEXT: "#FFFFFF",
-  SWITCH_TRACK_ON: "#002366", 
+  SWITCH_TRACK_ON: "#002366",
   SWITCH_TRACK_OFF: "#CCC",
-  SWITCH_THUMB: "#FFFFFF", 
+  SWITCH_THUMB: "#FFFFFF",
 };
 
 export default function DadosDoFato({ navigation, route }) {
-  
   const dadosAnteriores = route.params || {};
 
   const [tipoRop, setTipoRop] = useState("");
@@ -171,16 +170,16 @@ export default function DadosDoFato({ navigation, route }) {
 
     const todosOsDadosAcumulados = {
       ...dadosAnteriores,
-      dadosDoFato: dadosDestaTela, 
+      dadosDoFato: dadosDestaTela,
     };
-   
+
     if (elementos.envolvidos) {
       console.log("INDO PARA: DadosPessoais com dados acumulados.");
-    
+
       navigation.navigate("DadosPessoais", todosOsDadosAcumulados);
     } else {
       console.log("INDO PARA: Apreensoes com dados acumulados.");
-     
+
       navigation.navigate("Apreensoes", todosOsDadosAcumulados);
     }
   };
@@ -214,19 +213,18 @@ export default function DadosDoFato({ navigation, route }) {
                 label="Selecione o Tipo..."
                 value=""
                 color={COLORS.SUB_TEXT}
-              />
+              ></Picker.Item>
               {tiposRop.map((tipo, index) => (
                 <Picker.Item
                   key={index}
                   label={tipo}
                   value={tipo}
                   color={COLORS.TEXT}
-                />
+                ></Picker.Item>
               ))}
             </Picker>
           </View>
 
-         
           <Text style={styles.label}>Evento/Operação</Text>
           <View style={styles.pickerContainer}>
             <Picker
@@ -242,14 +240,14 @@ export default function DadosDoFato({ navigation, route }) {
                 label="Selecione o Evento..."
                 value=""
                 color={COLORS.SUB_TEXT}
-              />
+              ></Picker.Item>
               {eventos.map((evento, index) => (
                 <Picker.Item
                   key={index}
                   label={evento}
                   value={evento}
                   color={COLORS.TEXT}
-                />
+                ></Picker.Item>
               ))}
             </Picker>
           </View>
@@ -291,14 +289,14 @@ export default function DadosDoFato({ navigation, route }) {
                 label="Selecione a Cidade..."
                 value=""
                 color={COLORS.SUB_TEXT}
-              />
+              ></Picker.Item>
               {cidades.map((cidade, index) => (
                 <Picker.Item
                   key={index}
                   label={cidade}
                   value={cidade}
                   color={COLORS.TEXT}
-                />
+                ></Picker.Item>
               ))}
             </Picker>
           </View>
@@ -319,7 +317,7 @@ export default function DadosDoFato({ navigation, route }) {
                 label="Selecione o Bairro..."
                 value=""
                 color={COLORS.SUB_TEXT}
-              />
+              ></Picker.Item>
               {cidade &&
                 bairrosPorCidade[cidade]?.map((bairro, index) => (
                   <Picker.Item
@@ -327,7 +325,7 @@ export default function DadosDoFato({ navigation, route }) {
                     label={bairro}
                     value={bairro}
                     color={COLORS.TEXT}
-                  />
+                  ></Picker.Item>
                 ))}
             </Picker>
           </View>
@@ -389,7 +387,6 @@ export default function DadosDoFato({ navigation, route }) {
           {Object.keys(elementos).map((key) => (
             <View key={key} style={styles.toggleRow}>
               <Text style={styles.toggleLabel}>
-                {/* Formatando o nome para exibição */}
                 {key.charAt(0).toUpperCase() +
                   key.slice(1).replace(/([A-Z])/g, " $1")}
               </Text>
@@ -414,11 +411,10 @@ export default function DadosDoFato({ navigation, route }) {
   );
 }
 
-
 const styles = StyleSheet.create({
   fullScreen: {
     flex: 1,
-    backgroundColor: COLORS.BACKGROUND, 
+    backgroundColor: COLORS.BACKGROUND,
   },
   scroll: {
     flex: 1,
