@@ -23,8 +23,8 @@ const COLORS = {
 
 const SummaryItem = ({ label, value }) => (
   <View style={styles.summaryItem}>
-        <Text style={styles.summaryLabel}>{label}:</Text>   {" "}
-    <Text style={styles.summaryValue}>{value}</Text> {" "}
+    <Text style={styles.summaryLabel}>{label}:</Text>
+    <Text style={styles.summaryValue}>{value}</Text>
   </View>
 );
 
@@ -46,98 +46,77 @@ export default function FinalRelatorio({ navigation, route }) {
   };
   const getTotalApreensoes = () => {
     return (
-      apreensoes.armas.length +
-      apreensoes.drogas.length +
-      apreensoes.dinheiro.length +
-      apreensoes.veiculos.length +
-      apreensoes.policiais.length
+      (apreensoes.armas ? apreensoes.armas.length : 0) +
+      (apreensoes.drogas ? apreensoes.drogas.length : 0) +
+      (apreensoes.dinheiro ? apreensoes.dinheiro.length : 0) +
+      (apreensoes.veiculos ? apreensoes.veiculos.length : 0) +
+      (apreensoes.policiais ? apreensoes.policiais.length : 0)
     );
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
-           {" "}
-      <View style={styles.container}>
-               {" "}
-        <Text style={styles.title}>5. Relatório de Ocorrência Final</Text>     
-         {" "}
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-                                     {" "}
-          <View style={styles.tokenCard}>
-                       {" "}
-            <MaterialCommunityIcons
-              name="security"
-              size={24}
-              color={COLORS.BACKGROUND}
-            />
-                       {" "}
-            <Text style={styles.tokenLabel}>TOKEN ÚNICO DO RELATÓRIO</Text>     
-                  <Text style={styles.tokenValue}>{tokenRelatorio}</Text>       
-             {" "}
-          </View>
-                                     {" "}
-          <View style={styles.summaryCard}>
-                       {" "}
-            <Text style={styles.cardTitle}>Sumário do Registro</Text>           
-                       {" "}
-            <SummaryItem
-              label="Total de Apreensões"
-              value={getTotalApreensoes()}
-            />
-                       {" "}
-            <SummaryItem
-              label="Armas Apreendidas"
-              value={apreensoes.armas ? apreensoes.armas.length : 0}
-            />
-                       {" "}
-            <SummaryItem
-              label="Drogas Apreendidas"
-              value={apreensoes.drogas ? apreensoes.drogas.length : 0}
-            />
-                       {" "}
-            <SummaryItem
-              label="Veículos Envolvidos"
-              value={apreensoes.veiculos ? apreensoes.veiculos.length : 0}
-            />
-                       {" "}
-            <SummaryItem
-              label="Policiais Envolvidos"
-              value={apreensoes.policiais ? apreensoes.policiais.length : 0}
-            />
-                       {" "}
-            <Text style={styles.historicoTitle}>Histórico / Narrativa:</Text>   
-                   {" "}
-            <Text style={styles.historicoText}>
-                             {" "}
-              {apreensoes.historico || "Nenhum histórico detalhado fornecido."} 
-                       {" "}
-            </Text>
-                     {" "}
-          </View>
-                   {" "}
-          <Text style={styles.noteText}>
-                          Os detalhes completos (Pessoais, Endereço, Fato) estão
-            vinculados a este token.          {" "}
+      <View style={styles.headerContainer}>
+        <Text style={styles.title}>5. Relatório de Ocorrência Final</Text>
+      </View>
+
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        style={styles.scroll}
+      >
+        <View style={styles.tokenCard}>
+          <MaterialCommunityIcons
+            name="security"
+            size={24}
+            color={COLORS.BACKGROUND}
+          />
+          <Text style={styles.tokenLabel}>TOKEN ÚNICO DO RELATÓRIO</Text>
+          <Text style={styles.tokenValue}>{tokenRelatorio}</Text>
+        </View>
+        <View style={styles.summaryCard}>
+          <Text style={styles.cardTitle}>Sumário do Registro</Text>
+          <SummaryItem
+            label="Total de Apreensões"
+            value={getTotalApreensoes()}
+          />
+          <SummaryItem
+            label="Armas Apreendidas"
+            value={apreensoes.armas ? apreensoes.armas.length : 0}
+          />
+          <SummaryItem
+            label="Drogas Apreendidas"
+            value={apreensoes.drogas ? apreensoes.drogas.length : 0}
+          />
+          <SummaryItem
+            label="Veículos Envolvidos"
+            value={apreensoes.veiculos ? apreensoes.veiculos.length : 0}
+          />
+          <SummaryItem
+            label="Policiais Envolvidos"
+            value={apreensoes.policiais ? apreensoes.policiais.length : 0}
+          />
+          <Text style={styles.historicoTitle}>Histórico / Narrativa:</Text>
+          <Text style={styles.historicoText}>
+            {apreensoes.historico || "Nenhum histórico detalhado fornecido."}
           </Text>
-                 {" "}
-        </ScrollView>
-                     {" "}
+        </View>
+
+        <Text style={styles.noteText}>
+          Os detalhes completos (Pessoais, Endereço, Fato) estão vinculados a
+          este token.
+        </Text>
         <TouchableOpacity style={styles.finalButton} onPress={handleFinalizar}>
-                   {" "}
           <FontAwesome
             name="check-circle"
             size={20}
             color={COLORS.BACKGROUND}
           />
-                   {" "}
           <Text style={styles.finalButtonText}>
             CONCLUIR E SALVAR OCORRÊNCIA
           </Text>
-                 {" "}
         </TouchableOpacity>
-             {" "}
-      </View>
-         {" "}
+        <View style={{ height: 20 }} />
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -147,12 +126,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.BACKGROUND,
   },
-  container: {
-    flex: 1,
+  headerContainer: {
     paddingHorizontal: 20,
     paddingTop: 10,
   },
+  scroll: {
+    flex: 1,
+  },
   scrollContent: {
+    paddingHorizontal: 20,
     paddingBottom: 20,
   },
   title: {
@@ -164,7 +146,6 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.PRIMARY,
     paddingBottom: 5,
   },
-
   tokenCard: {
     backgroundColor: COLORS.PRIMARY,
     padding: 20,
@@ -190,7 +171,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     letterSpacing: 1,
   },
-
   summaryCard: {
     backgroundColor: COLORS.CARD,
     padding: 15,
@@ -248,7 +228,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontStyle: "italic",
   },
-
   finalButton: {
     flexDirection: "row",
     backgroundColor: COLORS.SUCCESS,
