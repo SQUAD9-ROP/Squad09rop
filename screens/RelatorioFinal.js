@@ -7,8 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  SafeAreaView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const gerarTokenRelatorio = () => {
@@ -43,7 +43,9 @@ const ItemCounter = ({ count, label, icon }) => (
 
 export default function ApreensoesScreen({ navigation, route }) {
   const dadosAnteriores = route.params || {};
+
   const dadosApreensoesAnteriores = dadosAnteriores.apreensoes || {};
+
   const armas = dadosApreensoesAnteriores.armas || [];
   const drogas = dadosApreensoesAnteriores.drogas || [];
   const municoes = dadosApreensoesAnteriores.municoes || [];
@@ -51,6 +53,7 @@ export default function ApreensoesScreen({ navigation, route }) {
   const dinheiro = dadosApreensoesAnteriores.dinheiro || [];
   const veiculos = dadosApreensoesAnteriores.veiculos || [];
   const policiais = dadosApreensoesAnteriores.policiais || [];
+
   const [historico, setHistorico] = useState(
     dadosApreensoesAnteriores.historico || ""
   );
@@ -63,10 +66,11 @@ export default function ApreensoesScreen({ navigation, route }) {
       );
       return;
     }
-
     const novoToken = gerarTokenRelatorio();
+
     const dadosApreensoesFinais = {
       ...dadosApreensoesAnteriores,
+      historico: historico,
       tokenRelatorio: novoToken,
     };
 
@@ -80,85 +84,82 @@ export default function ApreensoesScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
+      <View style={styles.headerContainer}>
         <Text style={styles.title}>4. Histórico e Resumo da Ocorrência</Text>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          <View style={styles.summaryCard}>
-            <Text style={styles.summaryTitle}>Itens Registrados:</Text>
+      </View>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        style={styles.scroll}
+      >
+        <View style={styles.summaryCard}>
+          <Text style={styles.summaryTitle}>Itens Registrados:</Text>
 
-            <View style={styles.countersRow}>
-              <ItemCounter
-                count={armas.length}
-                label="Armas"
-                icon="crosshairs"
-              />
-              <ItemCounter
-                count={municoes.length}
-                label="Munições"
-                icon="circle-o"
-              />
-            </View>
-
-            <View style={styles.countersRow}>
-              <ItemCounter count={drogas.length} label="Drogas" icon="flask" />
-              <ItemCounter
-                count={dinheiro.length}
-                label="Dinheiro"
-                icon="money"
-              />
-            </View>
-
-            <View style={styles.countersRow}>
-              <ItemCounter count={objetos.length} label="Objetos" icon="cube" />
-              <ItemCounter
-                count={veiculos.length}
-                label="Veículos"
-                icon="car"
-              />
-            </View>
-
-            <View style={styles.countersRow}>
-              <ItemCounter
-                count={policiais.length}
-                label="Policiais"
-                icon="user"
-              />
-            </View>
-          </View>
-          <View style={styles.historicoCard}>
-            <View style={styles.headerHistorico}>
-              <MaterialCommunityIcons
-                name="pencil-ruler"
-                size={24}
-                color={COLORS.PRIMARY}
-              />
-              <Text style={styles.sectionTitle}>
-                Histórico / Narrativa do Fato
-              </Text>
-            </View>
-
-            <Text style={styles.label}>
-              Descreva o desenrolar da ocorrência detalhadamente (quem, o quê,
-              como, onde, quando):
-            </Text>
-            <TextInput
-              style={styles.historicoInput}
-              value={historico}
-              onChangeText={setHistorico}
-              multiline
-              numberOfLines={8}
-              placeholder="Ex: No patrulhamento pela Rua X, a guarnição avistou indivíduo em atitude suspeita..."
+          <View style={styles.countersRow}>
+            <ItemCounter count={armas.length} label="Armas" icon="crosshairs" />
+            <ItemCounter
+              count={municoes.length}
+              label="Munições"
+              icon="circle-o"
             />
-            <Text style={styles.charCount}>
-              Caracteres: {historico.length}/50 (Mínimo)
+          </View>
+
+          <View style={styles.countersRow}>
+            <ItemCounter count={drogas.length} label="Drogas" icon="flask" />
+            <ItemCounter
+              count={dinheiro.length}
+              label="Dinheiro"
+              icon="money"
+            />
+          </View>
+
+          <View style={styles.countersRow}>
+            <ItemCounter count={objetos.length} label="Objetos" icon="cube" />
+            <ItemCounter count={veiculos.length} label="Veículos" icon="car" />
+          </View>
+
+          <View style={styles.countersRow}>
+            <ItemCounter
+              count={policiais.length}
+              label="Policiais"
+              icon="user"
+            />
+          </View>
+        </View>
+        <View style={styles.historicoCard}>
+          <View style={styles.headerHistorico}>
+            <MaterialCommunityIcons
+              name="pencil-ruler"
+              size={24}
+              color={COLORS.PRIMARY}
+            />
+            <Text style={styles.sectionTitle}>
+              Histórico / Narrativa do Fato
             </Text>
           </View>
-        </ScrollView>
+
+          <Text style={styles.label}>
+            Descreva o desenrolar da ocorrência detalhadamente (quem, o quê,
+            como, onde, quando):
+          </Text>
+          <TextInput
+            style={styles.historicoInput}
+            value={historico}
+            onChangeText={setHistorico}
+            multiline
+            numberOfLines={8}
+            placeholder="Ex: No patrulhamento pela Rua X, a guarnição avistou indivíduo em atitude suspeita..."
+          />
+          <Text style={styles.charCount}>
+            Caracteres: {historico.length}/50 (Mínimo)
+          </Text>
+        </View>
         <TouchableOpacity style={styles.finalButton} onPress={handleNext}>
           <FontAwesome name="file-text-o" size={20} color={COLORS.BACKGROUND} />
           <Text style={styles.finalButtonText}>GERAR RELATÓRIO FINAL</Text>
         </TouchableOpacity>
-      </View>
+
+        <View style={{ height: 20 }} />
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -168,12 +169,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.BACKGROUND,
   },
-  container: {
-    flex: 1,
+  headerContainer: {
     paddingHorizontal: 20,
     paddingTop: 10,
   },
+  scroll: {
+    flex: 1,
+  },
   scrollContent: {
+    paddingHorizontal: 20,
     paddingBottom: 20,
   },
   title: {
