@@ -32,7 +32,6 @@ export default function DadosPessoais({ navigation, route }) {
   const [sexo, setSexo] = useState("");
   const [condicaoFisica, setCondicaoFisica] = useState("");
   const [usoAlgema, setUsoAlgema] = useState("");
-  // --- NOVO ESTADO PARA NACIONALIDADE ---
   const [nacionalidade, setNacionalidade] = useState("BRASILEIRO");
 
   const handleNext = () => {
@@ -84,7 +83,7 @@ export default function DadosPessoais({ navigation, route }) {
         >
           <Text style={[styles.sectionTitle, { color: COLORS.TEXT }]}>
             Dados Pessoais
-          </Text>{" "}
+          </Text>
           <Text style={[styles.label, { color: COLORS.TEXT }]}>
             Tipo de Envolvido*
           </Text>
