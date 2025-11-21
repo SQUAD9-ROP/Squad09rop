@@ -13,8 +13,7 @@ import {
 } from "react-native";
 
 export default function Endereco({ navigation, route }) {
-
-  const dadosAnteriores = route.params || {}; 
+  const dadosAnteriores = route.params || {};
   const [contato, setContato] = useState("");
   const [email, setEmail] = useState("");
   const [cep, setCep] = useState("");
@@ -22,7 +21,7 @@ export default function Endereco({ navigation, route }) {
   const [numero, setNumero] = useState("");
   const [complemento, setComplemento] = useState("");
   const [bairro, setBairro] = useState("");
-  const [cidade, setCidade] = useState(""); 
+  const [cidade, setCidade] = useState("");
 
   const handleNext = () => {
     if (
@@ -40,7 +39,7 @@ export default function Endereco({ navigation, route }) {
       );
       console.log("ERRO: Validação falhou, mostrando alerta.");
       return;
-    } 
+    }
 
     const dadosDestaTela = {
       contato,
@@ -51,33 +50,31 @@ export default function Endereco({ navigation, route }) {
       complemento,
       bairro,
       cidade,
-    }; 
+    };
 
     const todosOsDadosAcumulados = {
-      ...dadosAnteriores, 
-      endereco: dadosDestaTela, 
-    }; 
+      ...dadosAnteriores,
+      endereco: dadosDestaTela,
+    };
 
     navigation.navigate("Caracteristicas", todosOsDadosAcumulados);
   };
 
   return (
     <SafeAreaView style={styles.container}>
-           {" "}
       <KeyboardAvoidingView
         style={styles.fullScreen}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
       >
-               {" "}
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
         >
-                   {" "}
-          <Text style={styles.sectionTitle}>Informações de Endereço</Text>     
-           {" "}
-          <Text style={styles.label}>Contato *</Text>         {" "}
+          <Text style={styles.sectionTitle}>1. Informações de Endereço</Text>
+          <Text style={styles.label}>Contato *</Text>
           <TextInput
             style={styles.input}
             placeholder="Telefone ou celular"
@@ -86,8 +83,7 @@ export default function Endereco({ navigation, route }) {
             value={contato}
             onChangeText={setContato}
           />
-          {" "}
-          <Text style={styles.label}>Email</Text> {" "}
+          <Text style={styles.label}>Email</Text>
           <TextInput
             style={styles.input}
             placeholder="email@exemplo.com"
@@ -96,8 +92,7 @@ export default function Endereco({ navigation, route }) {
             value={email}
             onChangeText={setEmail}
           />
-           <Text style={styles.label}>CEP *</Text>
-                   {" "}
+          <Text style={styles.label}>CEP *</Text>
           <TextInput
             style={styles.input}
             placeholder="00000000"
@@ -107,8 +102,7 @@ export default function Endereco({ navigation, route }) {
             value={cep}
             onChangeText={setCep}
           />
-          {" "}
-          <Text style={styles.label}>Logradouro *</Text> {" "}
+          <Text style={styles.label}>Logradouro *</Text>
           <TextInput
             style={styles.input}
             placeholder="Rua, Avenida..."
@@ -116,8 +110,7 @@ export default function Endereco({ navigation, route }) {
             value={logradouro}
             onChangeText={setLogradouro}
           />
-          {" "}
-          <Text style={styles.label}>Número *</Text> {" "}
+          <Text style={styles.label}>Número *</Text>
           <TextInput
             style={styles.input}
             placeholder="Número"
@@ -126,8 +119,7 @@ export default function Endereco({ navigation, route }) {
             value={numero}
             onChangeText={setNumero}
           />
-          {" "}
-          <Text style={styles.label}>Complemento *</Text> {" "}
+          <Text style={styles.label}>Complemento *</Text>
           <TextInput
             style={styles.input}
             placeholder="Apartamento, bloco..."
@@ -135,8 +127,7 @@ export default function Endereco({ navigation, route }) {
             value={complemento}
             onChangeText={setComplemento}
           />
-          {" "}
-          <Text style={styles.label}>Bairro *</Text>  {" "}
+          <Text style={styles.label}>Bairro *</Text>
           <TextInput
             style={styles.input}
             placeholder="Bairro"
@@ -144,8 +135,7 @@ export default function Endereco({ navigation, route }) {
             value={bairro}
             onChangeText={setBairro}
           />
-          {" "}
-          <Text style={styles.label}>Cidade *</Text>  {" "}
+          <Text style={styles.label}>Cidade *</Text>
           <TextInput
             style={styles.input}
             placeholder="Cidade"
@@ -153,19 +143,12 @@ export default function Endereco({ navigation, route }) {
             value={cidade}
             onChangeText={setCidade}
           />
-                    <View style={{ height: 100 }} />       {" "}
-        </ScrollView>
-               {" "}
-        <View style={styles.fixedButtonContainer}>
-                   {" "}
-          <TouchableOpacity style={styles.button} onPress={handleNext}>
-                        <Text style={styles.buttonText}>Próximo</Text>         {" "}
+          <TouchableOpacity style={styles.buttonRolavel} onPress={handleNext}>
+            <Text style={styles.buttonText}>Próximo</Text>
           </TouchableOpacity>
-                 {" "}
-        </View>
-             {" "}
+          <View style={{ height: 20 }} />
+        </ScrollView>
       </KeyboardAvoidingView>
-         {" "}
     </SafeAreaView>
   );
 }
@@ -180,11 +163,11 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 1,
-    paddingHorizontal: 20,
   },
   scrollContent: {
+    paddingHorizontal: 20,
     paddingTop: 20,
-    paddingBottom: 120,
+    paddingBottom: 20,
   },
   sectionTitle: {
     color: "#000000",
@@ -206,23 +189,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#CCC",
   },
-  fixedButtonContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "#FFFFFF",
-    padding: 20,
-    alignItems: "center",
-    borderTopWidth: 1,
-    borderTopColor: "#EEE",
-  },
-  button: {
+  buttonRolavel: {
     backgroundColor: "#002366",
-    padding: 5,
+    padding: 15,
     borderRadius: 8,
     width: "100%",
     alignItems: "center",
+    marginTop: 20,
   },
   buttonText: {
     color: "#FFFFFF",
