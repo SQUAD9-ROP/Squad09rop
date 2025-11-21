@@ -1,4 +1,4 @@
-import React, { useState } from "react"; nnn
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -74,10 +74,8 @@ const ExpandableCard = ({ title, showExpandToggle, children }) => {
             style={{ paddingLeft: 10 }}
           />
         )}
-             {" "}
       </View>
-            {showExpandToggle ? isExpanded && renderContent() : renderContent()}
-         {" "}
+      {showExpandToggle ? isExpanded && renderContent() : renderContent()}
     </TouchableOpacity>
   );
 };
@@ -156,7 +154,7 @@ const novoVeiculo = (id) => ({
 const novoPolicial = (id) => ({
   id,
   matricula: "",
-  nome: "", 
+  nome: "",
   funcao: "",
 });
 
@@ -174,7 +172,7 @@ export default function Apreensoes({ navigation, route }) {
 
   const [tokenRelatorio, setTokenRelatorio] = useState("");
 
-  const getNextId = (arr) => (arr.length > 0 ? arr[arr.length - 1].id + 1 : 1); 
+  const getNextId = (arr) => (arr.length > 0 ? arr[arr.length - 1].id + 1 : 1);
 
   const handleAddArma = () => {
     setArmas([...armas, novaArma(getNextId(armas))]);
@@ -264,11 +262,11 @@ export default function Apreensoes({ navigation, route }) {
         policial.id === id ? { ...policial, [field]: value } : policial
       )
     );
-  }; 
+  };
 
   const handleNext = () => {
     const novoToken = gerarTokenRelatorio();
-    setTokenRelatorio(novoToken); 
+    setTokenRelatorio(novoToken);
 
     const dadosDestaTela = {
       armas,
@@ -277,19 +275,19 @@ export default function Apreensoes({ navigation, route }) {
       dinheiro,
       objetos,
       veiculos,
-      policiais, 
+      policiais,
       historico: "",
       tokenRelatorio: novoToken,
-    }; 
+    };
 
     const todosOsDadosAcumulados = {
       ...dadosAnteriores,
       apreensoes: dadosDestaTela,
-    }; 
+    };
 
     console.log("Fluxo de coleta concluído. Navegando para RelatorioFinal.");
     navigation.navigate("RelatorioFinal", todosOsDadosAcumulados);
-  }; 
+  };
   const ArmaDeFogoForm = ({ arma, showExpandToggle }) => (
     <ExpandableCard
       title={`Arma #${armas.findIndex((a) => a.id === arma.id) + 1} (${
@@ -297,53 +295,43 @@ export default function Apreensoes({ navigation, route }) {
       })`}
       showExpandToggle={showExpandToggle}
     >
-            <Text style={styles.label}>Tipo da Arma *</Text>     {" "}
+      <Text style={styles.label}>Tipo da Arma *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={arma.tipo}
           onValueChange={(v) => handleUpdateArma(arma.id, "tipo", v)}
           dropdownIconColor={COLORS.SUB_TEXT}
           style={styles.pickerBase}
         >
-                   {" "}
           <Picker.Item
             label="Selecione o Tipo..."
             value=""
             color={COLORS.SUB_TEXT}
           />
-                   {" "}
           {tiposArma.map((t, i) => (
             <Picker.Item key={i} label={t} value={t} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-            <Text style={styles.label}>Calibre *</Text>     {" "}
+      <Text style={styles.label}>Calibre *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={arma.calibre}
           onValueChange={(v) => handleUpdateArma(arma.id, "calibre", v)}
           dropdownIconColor={COLORS.SUB_TEXT}
           style={styles.pickerBase}
         >
-                   {" "}
           <Picker.Item
             label="Selecione o Calibre..."
             value=""
             color={COLORS.SUB_TEXT}
           />
-                   {" "}
           {calibres.map((c, i) => (
             <Picker.Item key={i} label={c} value={c} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-            <Text style={styles.label}>Nº de Série / ID (Opcional)</Text>     {" "}
+      <Text style={styles.label}>Nº de Série / ID (Opcional)</Text>
       <TextInput
         style={styles.input}
         placeholder="Nº de Série ou Identificação"
@@ -351,18 +339,15 @@ export default function Apreensoes({ navigation, route }) {
         value={arma.serie}
         onChangeText={(v) => handleUpdateArma(arma.id, "serie", v)}
       />
-           {" "}
       {armas.length >= 1 && (
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => handleRemoveArma(arma.id)}
         >
-                   {" "}
-          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />       
-            <Text style={styles.removeButtonText}>Remover Arma</Text>       {" "}
+          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />
+          <Text style={styles.removeButtonText}>Remover Arma</Text>
         </TouchableOpacity>
       )}
-         {" "}
     </ExpandableCard>
   );
 
@@ -375,30 +360,26 @@ export default function Apreensoes({ navigation, route }) {
       })`}
       showExpandToggle={showExpandToggle}
     >
-            <Text style={styles.label}>Tipo (Calibre) *</Text>     {" "}
+      <Text style={styles.label}>Tipo (Calibre) *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={municao.tipo}
           onValueChange={(v) => handleUpdateMunicao(municao.id, "tipo", v)}
           dropdownIconColor={COLORS.SUB_TEXT}
           style={styles.pickerBase}
         >
-                   {" "}
           <Picker.Item
             label="Selecione o Tipo..."
             value=""
             color={COLORS.SUB_TEXT}
           />
-                   {" "}
+
           {tiposMunicao.map((t, i) => (
             <Picker.Item key={i} label={t} value={t} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-            <Text style={styles.label}>Quantidade *</Text>     {" "}
+      <Text style={styles.label}>Quantidade *</Text>
       <TextInput
         style={styles.input}
         placeholder="Quantidade (apenas números)"
@@ -407,7 +388,7 @@ export default function Apreensoes({ navigation, route }) {
         onChangeText={(v) => handleUpdateMunicao(municao.id, "quantidade", v)}
         keyboardType="numeric"
       />
-            <Text style={styles.label}>Informações da Apreensão</Text>     {" "}
+      <Text style={styles.label}>Informações da Apreensão</Text>
       <TextInput
         style={[styles.input, { height: 80, textAlignVertical: "top" }]}
         placeholder="Detalhes sobre a apreensão (opcional)"
@@ -418,18 +399,15 @@ export default function Apreensoes({ navigation, route }) {
           handleUpdateMunicao(municao.id, "infoApreensao", v)
         }
       />
-           {" "}
       {municoes.length >= 1 && (
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => handleRemoveMunicao(municao.id)}
         >
-                   {" "}
-          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />       
-            <Text style={styles.removeButtonText}>Remover Munição</Text>       {" "}
+          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />
+          <Text style={styles.removeButtonText}>Remover Munição</Text>
         </TouchableOpacity>
       )}
-         {" "}
     </ExpandableCard>
   );
 
@@ -442,32 +420,26 @@ export default function Apreensoes({ navigation, route }) {
       })`}
       showExpandToggle={showExpandToggle}
     >
-            <Text style={styles.label}>Tipo *</Text>     {" "}
+      <Text style={styles.label}>Tipo *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={droga.tipo}
           onValueChange={(v) => handleUpdateDroga(droga.id, "tipo", v)}
           dropdownIconColor={COLORS.SUB_TEXT}
           style={styles.pickerBase}
         >
-                   {" "}
           <Picker.Item
             label="Selecione o Tipo..."
             value=""
             color={COLORS.SUB_TEXT}
           />
-                   {" "}
+
           {tiposDroga.map((t, i) => (
             <Picker.Item key={i} label={t} value={t} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-           {" "}
       <Text style={styles.label}>Apresentação (Ex.: tablete, pó, pedra) *</Text>
-           {" "}
       <TextInput
         style={styles.input}
         placeholder="Apresentação da droga"
@@ -475,11 +447,9 @@ export default function Apreensoes({ navigation, route }) {
         value={droga.apresentacao}
         onChangeText={(v) => handleUpdateDroga(droga.id, "apresentacao", v)}
       />
-           {" "}
       <View style={styles.inlineGroup}>
-               {" "}
         <View style={styles.inputContainerHalf}>
-                    <Text style={styles.label}>Quantidade *</Text>         {" "}
+          <Text style={styles.label}>Quantidade *</Text>
           <TextInput
             style={styles.inputInline}
             placeholder="Qtd."
@@ -488,34 +458,25 @@ export default function Apreensoes({ navigation, route }) {
             onChangeText={(v) => handleUpdateDroga(droga.id, "quantidade", v)}
             keyboardType="numeric"
           />
-                 {" "}
         </View>
-               {" "}
         <View style={styles.inputContainerHalf}>
-                    <Text style={styles.label}>Unidade *</Text>         {" "}
+          <Text style={styles.label}>Unidade *</Text>
           <View style={[styles.pickerContainer, styles.pickerContainerInline]}>
-                       {" "}
             <Picker
               selectedValue={droga.unidade}
               onValueChange={(v) => handleUpdateDroga(droga.id, "unidade", v)}
               dropdownIconColor={COLORS.SUB_TEXT}
               style={styles.pickerBase}
             >
-                           {" "}
               <Picker.Item label="Unidade" value="" color={COLORS.SUB_TEXT} /> 
-                         {" "}
               {unidadesMedida.map((u, i) => (
                 <Picker.Item key={i} label={u} value={u.split(" ")[0]} />
               ))}
-                         {" "}
             </Picker>
-                     {" "}
           </View>
-                 {" "}
         </View>
-             {" "}
       </View>
-            <Text style={styles.label}>Embalagem</Text>     {" "}
+      <Text style={styles.label}>Embalagem</Text>
       <TextInput
         style={styles.input}
         placeholder="Tipo de embalagem (Ex.: saco plástico, papel alumínio)"
@@ -523,18 +484,15 @@ export default function Apreensoes({ navigation, route }) {
         value={droga.embalagem}
         onChangeText={(v) => handleUpdateDroga(droga.id, "embalagem", v)}
       />
-           {" "}
       {drogas.length >= 1 && (
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => handleRemoveDroga(droga.id)}
         >
-                   {" "}
-          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />       
-            <Text style={styles.removeButtonText}>Remover Droga</Text>       {" "}
+          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />
+          <Text style={styles.removeButtonText}>Remover Droga</Text>
         </TouchableOpacity>
       )}
-         {" "}
     </ExpandableCard>
   );
 
@@ -545,7 +503,7 @@ export default function Apreensoes({ navigation, route }) {
       } (${item.valor ? `R$ ${item.valor}` : "Não Informado"})`}
       showExpandToggle={showExpandToggle}
     >
-            <Text style={styles.label}>Valor Total (R$) *</Text>     {" "}
+      <Text style={styles.label}>Valor Total (R$) *</Text>
       <TextInput
         style={styles.input}
         placeholder="R$ 0,00"
@@ -554,7 +512,7 @@ export default function Apreensoes({ navigation, route }) {
         onChangeText={(v) => handleUpdateDinheiro(item.id, "valor", v)}
         keyboardType="numeric"
       />
-            <Text style={styles.label}>Observações (Opcional)</Text>     {" "}
+      <Text style={styles.label}>Observações (Opcional)</Text>
       <TextInput
         style={[styles.input, { height: 80, textAlignVertical: "top" }]}
         placeholder="Ex.: Discriminação de cédulas, origem do dinheiro"
@@ -563,18 +521,15 @@ export default function Apreensoes({ navigation, route }) {
         value={item.observacoes}
         onChangeText={(v) => handleUpdateDinheiro(item.id, "observacoes", v)}
       />
-           {" "}
       {dinheiro.length >= 1 && (
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => handleRemoveDinheiro(item.id)}
         >
-                   {" "}
-          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />       
-            <Text style={styles.removeButtonText}>Remover Item</Text>       {" "}
+          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />
+          <Text style={styles.removeButtonText}>Remover Item</Text>
         </TouchableOpacity>
       )}
-         {" "}
     </ExpandableCard>
   );
 
@@ -585,7 +540,7 @@ export default function Apreensoes({ navigation, route }) {
       })`}
       showExpandToggle={showExpandToggle}
     >
-            <Text style={styles.label}>Descrição *</Text>     {" "}
+      <Text style={styles.label}>Descrição *</Text>
       <TextInput
         style={[styles.input, { height: 80, textAlignVertical: "top" }]}
         placeholder="Ex.: Telefone celular, notebook, jóias, documento"
@@ -594,7 +549,7 @@ export default function Apreensoes({ navigation, route }) {
         value={objeto.descricao}
         onChangeText={(v) => handleUpdateObjeto(objeto.id, "descricao", v)}
       />
-            <Text style={styles.label}>Marca/Modelo (Opcional)</Text>     {" "}
+      <Text style={styles.label}>Marca/Modelo (Opcional)</Text>
       <TextInput
         style={styles.input}
         placeholder="Ex.: Apple iPhone 13, Samsung Galaxy S21"
@@ -602,11 +557,9 @@ export default function Apreensoes({ navigation, route }) {
         value={objeto.marcaModelo}
         onChangeText={(v) => handleUpdateObjeto(objeto.id, "marcaModelo", v)}
       />
-           {" "}
       <Text style={styles.label}>
-                Identificador (Ex.: IMEI/Serial) (Opcional)      {" "}
+        Identificador (Ex.: IMEI/Serial) (Opcional)
       </Text>
-           {" "}
       <TextInput
         style={styles.input}
         placeholder="IMEI, número de série, etc."
@@ -614,41 +567,33 @@ export default function Apreensoes({ navigation, route }) {
         value={objeto.identificador}
         onChangeText={(v) => handleUpdateObjeto(objeto.id, "identificador", v)}
       />
-            <Text style={styles.label}>Situação *</Text>     {" "}
+      <Text style={styles.label}>Situação *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={objeto.situacao}
           onValueChange={(v) => handleUpdateObjeto(objeto.id, "situacao", v)}
           dropdownIconColor={COLORS.SUB_TEXT}
           style={styles.pickerBase}
         >
-                   {" "}
           <Picker.Item
             label="Selecione a Situação..."
             value=""
             color={COLORS.SUB_TEXT}
           />
-                   {" "}
           {situacoesObjeto.map((s, i) => (
             <Picker.Item key={i} label={s} value={s} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-           {" "}
       {objetos.length >= 1 && (
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => handleRemoveObjeto(objeto.id)}
         >
-                   {" "}
-          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />       
-            <Text style={styles.removeButtonText}>Remover Objeto</Text>       {" "}
+          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />
+          <Text style={styles.removeButtonText}>Remover Objeto</Text>
         </TouchableOpacity>
       )}
-         {" "}
     </ExpandableCard>
   );
 
@@ -659,30 +604,25 @@ export default function Apreensoes({ navigation, route }) {
       })`}
       showExpandToggle={showExpandToggle}
     >
-            <Text style={styles.label}>Tipo *</Text>     {" "}
+      <Text style={styles.label}>Tipo *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={veiculo.tipo}
           onValueChange={(v) => handleUpdateVeiculo(veiculo.id, "tipo", v)}
           dropdownIconColor={COLORS.SUB_TEXT}
           style={styles.pickerBase}
         >
-                   {" "}
           <Picker.Item
             label="Selecione o Tipo..."
             value=""
             color={COLORS.SUB_TEXT}
           />
-                   {" "}
           {tiposVeiculo.map((t, i) => (
             <Picker.Item key={i} label={t} value={t} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-            <Text style={styles.label}>Placa *</Text>     {" "}
+      <Text style={styles.label}>Placa *</Text>
       <TextInput
         style={styles.input}
         placeholder="Placa ou 'SEM PLACA'"
@@ -691,7 +631,7 @@ export default function Apreensoes({ navigation, route }) {
         onChangeText={(v) => handleUpdateVeiculo(veiculo.id, "placa", v)}
         autoCapitalize="characters"
       />
-            <Text style={styles.label}>Marca/Modelo *</Text>     {" "}
+      <Text style={styles.label}>Marca/Modelo *</Text>
       <TextInput
         style={styles.input}
         placeholder="Marca/Modelo (Ex.: Fiat Uno, Honda CG 160)"
@@ -699,11 +639,9 @@ export default function Apreensoes({ navigation, route }) {
         value={veiculo.marcaModelo}
         onChangeText={(v) => handleUpdateVeiculo(veiculo.id, "marcaModelo", v)}
       />
-           {" "}
       <View style={styles.inlineGroup}>
-               {" "}
         <View style={styles.inputContainerHalf}>
-                    <Text style={styles.label}>Cor *</Text>         {" "}
+          <Text style={styles.label}>Cor *</Text>
           <TextInput
             style={styles.inputInline}
             placeholder="Cor"
@@ -711,11 +649,9 @@ export default function Apreensoes({ navigation, route }) {
             value={veiculo.cor}
             onChangeText={(v) => handleUpdateVeiculo(veiculo.id, "cor", v)}
           />
-                 {" "}
         </View>
-               {" "}
         <View style={styles.inputContainerHalf}>
-                    <Text style={styles.label}>Chassi (Opcional)</Text>         {" "}
+          <Text style={styles.label}>Chassi (Opcional)</Text>
           <TextInput
             style={styles.inputInline}
             placeholder="Nº do Chassi"
@@ -723,22 +659,17 @@ export default function Apreensoes({ navigation, route }) {
             value={veiculo.chassi}
             onChangeText={(v) => handleUpdateVeiculo(veiculo.id, "chassi", v)}
           />
-                 {" "}
         </View>
-             {" "}
       </View>
-           {" "}
       {veiculos.length >= 1 && (
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => handleRemoveVeiculo(veiculo.id)}
         >
-                   {" "}
-          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />       
-            <Text style={styles.removeButtonText}>Remover Veículo</Text>       {" "}
+          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />
+          <Text style={styles.removeButtonText}>Remover Veículo</Text>
         </TouchableOpacity>
       )}
-         {" "}
     </ExpandableCard>
   );
 
@@ -749,7 +680,7 @@ export default function Apreensoes({ navigation, route }) {
       } (${policial.nome || "Não Informado"})`}
       showExpandToggle={showExpandToggle}
     >
-            <Text style={styles.label}>Matrícula *</Text>     {" "}
+      <Text style={styles.label}>Matrícula *</Text>
       <TextInput
         style={styles.input}
         placeholder="Matrícula"
@@ -758,8 +689,7 @@ export default function Apreensoes({ navigation, route }) {
         onChangeText={(v) => handleUpdatePolicial(policial.id, "matricula", v)}
         keyboardType="numeric"
       />
-           {" "}
-          <Text style={styles.label}>Nome Completo *</Text>     {" "}
+      <Text style={styles.label}>Nome Completo *</Text>
       <TextInput
         style={styles.input}
         placeholder="Nome Completo"
@@ -767,69 +697,55 @@ export default function Apreensoes({ navigation, route }) {
         value={policial.nome}
         onChangeText={(v) => handleUpdatePolicial(policial.id, "nome", v)}
       />
-            <Text style={styles.label}>Função na Ocorrência *</Text>     {" "}
+      <Text style={styles.label}>Função na Ocorrência *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={policial.funcao}
           onValueChange={(v) => handleUpdatePolicial(policial.id, "funcao", v)}
           dropdownIconColor={COLORS.SUB_TEXT}
           style={styles.pickerBase}
         >
-                   {" "}
           <Picker.Item
             label="Selecione a Função..."
             value=""
             color={COLORS.SUB_TEXT}
           />
-                   {" "}
           {funcoesPolicial.map((f, i) => (
             <Picker.Item key={i} label={f} value={f} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-           {" "}
       {policiais.length >= 1 && (
         <TouchableOpacity
           style={styles.removeButton}
           onPress={() => handleRemovePolicial(policial.id)}
         >
-                   {" "}
-          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />       
-            <Text style={styles.removeButtonText}>Remover Policial</Text>       {" "}
+          <FontAwesome name="trash-o" size={18} color={COLORS.DANGER} />
+          <Text style={styles.removeButtonText}>Remover Policial</Text>
         </TouchableOpacity>
       )}
-         {" "}
     </ExpandableCard>
-  ); 
+  );
   return (
     <SafeAreaView style={styles.fullScreen}>
-           {" "}
       <KeyboardAvoidingView
         style={styles.fullScreen}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={0}
       >
-               {" "}
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-                   {" "}
-          <Text style={styles.pageTitle}>Apreensões e Finalização</Text>         
-               {" "}
+          <Text style={styles.pageTitle}>Apreensões e Finalização</Text>
           <Text style={styles.sectionTitle}>
-                        2.2 Armas de Fogo ({armas.length})          {" "}
+            2.2 Armas de Fogo ({armas.length})
           </Text>
-                   {" "}
           {armas.length === 0 && (
             <Text style={styles.emptyText}>Nenhuma arma cadastrada.</Text>
           )}
-                   {" "}
           {armas.map((arma) => (
             <ArmaDeFogoForm
               key={arma.id}
@@ -837,23 +753,16 @@ export default function Apreensoes({ navigation, route }) {
               showExpandToggle={armas.length > 1}
             />
           ))}
-                   {" "}
           <TouchableOpacity style={styles.addButton} onPress={handleAddArma}>
-                       {" "}
-            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} /> 
-                     {" "}
-            <Text style={styles.addButtonText}>Adicionar Arma de Fogo</Text>   
-                 {" "}
+            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} />
+            <Text style={styles.addButtonText}>Adicionar Arma de Fogo</Text>
           </TouchableOpacity>
-                           {" "}
           <Text style={[styles.sectionTitle, { marginTop: 30 }]}>
-                        2.3 Munições ({municoes.length})          {" "}
+            2.3 Munições ({municoes.length})
           </Text>
-                   {" "}
           {municoes.length === 0 && (
             <Text style={styles.emptyText}>Nenhuma munição cadastrada.</Text>
           )}
-                   {" "}
           {municoes.map((municao) => (
             <MunicaoForm
               key={municao.id}
@@ -861,22 +770,16 @@ export default function Apreensoes({ navigation, route }) {
               showExpandToggle={municoes.length > 1}
             />
           ))}
-                   {" "}
           <TouchableOpacity style={styles.addButton} onPress={handleAddMunicao}>
-                       {" "}
-            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} /> 
-                     {" "}
-            <Text style={styles.addButtonText}>Adicionar Munição</Text>         {" "}
+            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} />
+            <Text style={styles.addButtonText}>Adicionar Munição</Text>
           </TouchableOpacity>
-                          {" "}
           <Text style={[styles.sectionTitle, { marginTop: 30 }]}>
-                        2.4 Drogas Apreendidas ({drogas.length})          {" "}
+            2.4 Drogas Apreendidas ({drogas.length})
           </Text>
-                   {" "}
           {drogas.length === 0 && (
             <Text style={styles.emptyText}>Nenhuma droga cadastrada.</Text>
           )}
-                   {" "}
           {drogas.map((droga) => (
             <DrogaForm
               key={droga.id}
@@ -884,22 +787,16 @@ export default function Apreensoes({ navigation, route }) {
               showExpandToggle={drogas.length > 1}
             />
           ))}
-                   {" "}
           <TouchableOpacity style={styles.addButton} onPress={handleAddDroga}>
-                       {" "}
-            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} /> 
-                      <Text style={styles.addButtonText}>Adicionar Droga</Text> 
-                   {" "}
+            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} />
+            <Text style={styles.addButtonText}>Adicionar Droga</Text>
           </TouchableOpacity>
-                            {" "}
           <Text style={[styles.sectionTitle, { marginTop: 30 }]}>
-                        2.5 Dinheiro Apreendido ({dinheiro.length})          {" "}
+            2.5 Dinheiro Apreendido ({dinheiro.length})
           </Text>
-                   {" "}
           {dinheiro.length === 0 && (
             <Text style={styles.emptyText}>Nenhum valor cadastrado.</Text>
           )}
-                   {" "}
           {dinheiro.map((item) => (
             <DinheiroForm
               key={item.id}
@@ -907,26 +804,19 @@ export default function Apreensoes({ navigation, route }) {
               showExpandToggle={dinheiro.length > 1}
             />
           ))}
-                   {" "}
           <TouchableOpacity
             style={styles.addButton}
             onPress={handleAddDinheiro}
           >
-                       {" "}
-            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} /> 
-                     {" "}
-            <Text style={styles.addButtonText}>Adicionar Dinheiro</Text>       
-             {" "}
+            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} />
+            <Text style={styles.addButtonText}>Adicionar Dinheiro</Text>
           </TouchableOpacity>
-                           {" "}
           <Text style={[styles.sectionTitle, { marginTop: 30 }]}>
-                        2.6 Objetos ({objetos.length})          {" "}
+            2.6 Objetos ({objetos.length})
           </Text>
-                   {" "}
           {objetos.length === 0 && (
             <Text style={styles.emptyText}>Nenhum objeto cadastrado.</Text>
           )}
-                   {" "}
           {objetos.map((objeto) => (
             <ObjetoForm
               key={objeto.id}
@@ -934,22 +824,16 @@ export default function Apreensoes({ navigation, route }) {
               showExpandToggle={objetos.length > 1}
             />
           ))}
-                   {" "}
           <TouchableOpacity style={styles.addButton} onPress={handleAddObjeto}>
-                       {" "}
-            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} /> 
-                      <Text style={styles.addButtonText}>Adicionar Objeto</Text>
-                     {" "}
+            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} />
+            <Text style={styles.addButtonText}>Adicionar Objeto</Text>
           </TouchableOpacity>
-                           {" "}
           <Text style={[styles.sectionTitle, { marginTop: 30 }]}>
-                        2.7 Veículos ({veiculos.length})          {" "}
+            2.7 Veículos ({veiculos.length})
           </Text>
-                   {" "}
           {veiculos.length === 0 && (
             <Text style={styles.emptyText}>Nenhum veículo cadastrado.</Text>
           )}
-                   {" "}
           {veiculos.map((veiculo) => (
             <VeiculoForm
               key={veiculo.id}
@@ -957,22 +841,16 @@ export default function Apreensoes({ navigation, route }) {
               showExpandToggle={veiculos.length > 1}
             />
           ))}
-                   {" "}
           <TouchableOpacity style={styles.addButton} onPress={handleAddVeiculo}>
-                       {" "}
-            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} /> 
-                     {" "}
-            <Text style={styles.addButtonText}>Adicionar Veículo</Text>         {" "}
+            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} />
+            <Text style={styles.addButtonText}>Adicionar Veículo</Text>
           </TouchableOpacity>
-                           {" "}
           <Text style={[styles.sectionTitle, { marginTop: 30 }]}>
-                        2.8 Policiais Envolvidos ({policiais.length})          {" "}
+            2.8 Policiais Envolvidos ({policiais.length})
           </Text>
-                   {" "}
           {policiais.length === 0 && (
             <Text style={styles.emptyText}>Nenhum policial cadastrado.</Text>
           )}
-                   {" "}
           {policiais.map((policial) => (
             <PolicialForm
               key={policial.id}
@@ -980,23 +858,17 @@ export default function Apreensoes({ navigation, route }) {
               showExpandToggle={policiais.length > 1}
             />
           ))}
-                   {" "}
           <TouchableOpacity
             style={styles.addButton}
             onPress={handleAddPolicial}
           >
-                       {" "}
-            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} /> 
-                     {" "}
-            <Text style={styles.addButtonText}>Adicionar Policial</Text>       
-             {" "}
+            <FontAwesome name="plus-circle" size={20} color={COLORS.ACCENT} />
+            <Text style={styles.addButtonText}>Adicionar Policial</Text>
           </TouchableOpacity>
-                            {" "}
           <Text style={[styles.sectionTitle, { marginTop: 30 }]}>
-                        3.0 Finalização          {" "}
+            3.0 Finalização
           </Text>
-                    <Text style={styles.label}>Token do Relatório *</Text>     
-             {" "}
+          <Text style={styles.label}>Token do Relatório *</Text>
           <TextInput
             style={[styles.input, { backgroundColor: COLORS.CARD }]}
             editable={false}
@@ -1008,26 +880,19 @@ export default function Apreensoes({ navigation, route }) {
             value={tokenRelatorio}
             autoCapitalize="characters"
           />
-                   {" "}
           <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-                       {" "}
             <Text style={styles.nextButtonText}>
-                            Finalizar e Gerar Relatório            {" "}
+              Finalizar e Gerar Relatório
             </Text>
-                       {" "}
             <FontAwesome
               name="chevron-right"
               size={16}
               color={COLORS.BACKGROUND}
               style={{ marginLeft: 10 }}
             />
-                     {" "}
           </TouchableOpacity>
-                 {" "}
         </ScrollView>
-             {" "}
       </KeyboardAvoidingView>
-         {" "}
     </SafeAreaView>
   );
 }
@@ -1042,7 +907,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: 20,
-    paddingBottom: 120, 
+    paddingBottom: 120,
   },
   pageTitle: {
     fontSize: 24,
@@ -1193,4 +1058,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
