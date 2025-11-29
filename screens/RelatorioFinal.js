@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import axios from 'axios'; 
 
 const gerarTokenRelatorio = () => {
   const timestamp = Date.now().toString().slice(-6);
@@ -40,6 +41,7 @@ const ItemCounter = ({ count, label, icon }) => (
     </Text>
   </View>
 );
+const API_REPORT_URL = "https://seu-servidor-backend.com/api/relatorio/gerar";
 
 export default function ApreensoesScreen({ navigation, route }) {
   const dadosAnteriores = route.params || {};
@@ -58,11 +60,11 @@ export default function ApreensoesScreen({ navigation, route }) {
     dadosApreensoesAnteriores.historico || ""
   );
 
-  const handleNext = () => {
-    if (historico.length < 50) {
+  const handleNext = async () => {
+    if (historico.length < 20) {
       Alert.alert(
         "Atenção",
-        "O histórico deve ter no mínimo 50 caracteres para detalhamento completo da ocorrência."
+        "O histórico deve ter no mínimo 20 caracteres para detalhamento completo da ocorrência e melhor geração do relatório."
       );
       return;
     }
@@ -74,13 +76,45 @@ export default function ApreensoesScreen({ navigation, route }) {
       tokenRelatorio: novoToken,
     };
 
-    const todosOsDadosAcumulados = {
+    const dadosCompletosParaIA = {
       ...dadosAnteriores,
       apreensoes: dadosApreensoesFinais,
     };
 
-    navigation.navigate("FinalRelatorio", todosOsDadosAcumulados);
+    let relatorioGerado = "Falha ao gerar o relatório automático. Por favor, preencha a seção de histórico manualmente.";
+
+    console.log("Simulando chamada à IA (API Real Desativada)...");
+    
+    await new Promise(resolve => setTimeout(resolve, 1000)); 
+
+    relatorioGerado = `RELATÓRIO AUTOMÁTICO DE OCORRÊNCIA (TOKEN: ${novoToken})
+Data e Hora: (Dados Anteriores)
+Local: (Dados Anteriores)
+
+I. ENVOLVIMENTO E FATOS:
+No dia ${new Date().toLocaleDateString('pt-BR')}, a guarnição (Policiais: ${policiais.length}) deu início à diligência. O fato central se desenrolou conforme o histórico detalhado inserido pelo usuário:
+"${historico}"
+
+II. APREENSÕES:
+Ocorrência de Apreensão/Envolvimento com os seguintes itens:
+- Armas: ${armas.length} unidade(s).
+- Drogas: ${drogas.length} porção(ões).
+- Veículos: ${veiculos.length} envolvido(s).
+- Dinheiro: ${dinheiro.length} registro(s) de valores.
+
+III. PROVIDÊNCIAS:
+O registro segue para a Delegacia de Polícia Civil para as devidas ações judiciárias. O presente relatório foi gerado automaticamente por Inteligência Artificial e requer a revisão e confirmação do agente.
+
+(Este texto deve aparecer na tela FinalRelatorio e ser editável)`;
+  
+    const todosOsDadosComRelatorio = {
+      ...dadosCompletosParaIA,
+      relatorioIA: relatorioGerado, 
+    };
+
+    navigation.navigate("FinalRelatorio", todosOsDadosComRelatorio);
   };
+ 
 
   return (
     <SafeAreaView style={styles.safeArea}>
