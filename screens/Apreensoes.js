@@ -79,28 +79,20 @@ const ExpandableCard = ({
 }) => {
   return (
     <View style={styles.expandableCardContainer}>
-           {" "}
       <TouchableOpacity onPress={onToggle} style={styles.expandableHeader}>
-               {" "}
         <Text style={styles.itemTitle}>{title || `${type} #${index + 1}`}</Text>
-                <Text style={styles.collapseIcon}>{isOpen ? "▲" : "▼"}</Text>   
-         {" "}
+        <Text style={styles.collapseIcon}>{isOpen ? "▲" : "▼"}</Text>
       </TouchableOpacity>
-           {" "}
       {isOpen && (
         <View style={styles.expandableContent}>
-                    {children}         {" "}
+          {children}
           <TouchableOpacity style={styles.removeButton} onPress={onRemove}>
-                       {" "}
             <Text style={styles.removeButtonText}>
-                            Remover {type} #{index + 1}           {" "}
+              Remover {type} #{index + 1}
             </Text>
-                     {" "}
           </TouchableOpacity>
-                 {" "}
         </View>
       )}
-         {" "}
     </View>
   );
 };
@@ -181,10 +173,10 @@ export default function Apreensoes({ navigation, route }) {
     }));
   };
   const handleFinalizar = () => {
-    if (!narrativa || narrativa.trim().length < 50) {
+    if (!narrativa || narrativa.trim().length < 20) {
       Alert.alert(
         "Campo Obrigatório",
-        "A Narrativa/Histórico do Fato é obrigatória e deve ser detalhada (mínimo de 50 caracteres) para finalizar o relatório."
+        "A Narrativa/Histórico do Fato é obrigatória e deve ser detalhada (mínimo de 20 caracteres) para finalizar o relatório."
       );
       return;
     }
@@ -272,9 +264,8 @@ export default function Apreensoes({ navigation, route }) {
       onToggle={() => handleToggleCard("Arma", index)}
       onRemove={() => handleRemoveItem(setArmas, index, "Arma")}
     >
-            <Text style={styles.label}>Tipo da arma *</Text>     {" "}
+      <Text style={styles.label}>Tipo da arma *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={arma.tipo}
           onValueChange={(value) =>
@@ -282,18 +273,14 @@ export default function Apreensoes({ navigation, route }) {
           }
           style={styles.picker}
         >
-                    <Picker.Item label="Selecione o Tipo..." value="" />       
-           {" "}
+          <Picker.Item label="Selecione o Tipo..." value="" />
           {TIPOS_ARMA.map((t, i) => (
             <Picker.Item key={i} label={t} value={t} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-            <Text style={styles.label}>Calibre *</Text>     {" "}
+      <Text style={styles.label}>Calibre *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={arma.calibre}
           onValueChange={(value) =>
@@ -301,16 +288,13 @@ export default function Apreensoes({ navigation, route }) {
           }
           style={styles.picker}
         >
-                    <Picker.Item label="Selecione o Calibre..." value="" />     
-             {" "}
+          <Picker.Item label="Selecione o Calibre..." value="" />
           {CALIBRES.map((c, i) => (
             <Picker.Item key={i} label={c} value={c} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-            <Text style={styles.label}>Número de Série (Opcional)</Text>     {" "}
+      <Text style={styles.label}>Número de Série (Opcional)</Text>
       <TextInput
         style={styles.input}
         placeholder="Nº de Série"
@@ -320,7 +304,6 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setArmas, index, "numSerie", value)
         }
       />
-         {" "}
     </ExpandableCard>
   );
 
@@ -334,7 +317,7 @@ export default function Apreensoes({ navigation, route }) {
       onToggle={() => handleToggleCard("Municao", index)}
       onRemove={() => handleRemoveItem(setMunicoes, index, "Municao")}
     >
-            <Text style={styles.label}>Tipo (Calibre) *</Text>     {" "}
+      <Text style={styles.label}>Tipo (Calibre) *</Text>
       <TextInput
         style={styles.input}
         placeholder="Ex: 9mm, .38"
@@ -344,7 +327,7 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setMunicoes, index, "tipo", value)
         }
       />
-            <Text style={styles.label}>Quantidade *</Text>     {" "}
+      <Text style={styles.label}>Quantidade *</Text>
       <TextInput
         style={styles.input}
         placeholder="Quantidade"
@@ -355,7 +338,7 @@ export default function Apreensoes({ navigation, route }) {
         }
         keyboardType="numeric"
       />
-            <Text style={styles.label}>Informações da Apreensão</Text>     {" "}
+      <Text style={styles.label}>Informações da Apreensão</Text>
       <TextInput
         style={styles.input}
         placeholder="Ex: Munições intactas, percutidas, etc."
@@ -365,7 +348,6 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setMunicoes, index, "informacoes", value)
         }
       />
-         {" "}
     </ExpandableCard>
   );
 
@@ -379,9 +361,8 @@ export default function Apreensoes({ navigation, route }) {
       onToggle={() => handleToggleCard("Droga", index)}
       onRemove={() => handleRemoveItem(setDrogas, index, "Droga")}
     >
-            <Text style={styles.label}>Tipo *</Text>     {" "}
+      <Text style={styles.label}>Tipo *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={droga.tipo}
           onValueChange={(value) =>
@@ -389,18 +370,14 @@ export default function Apreensoes({ navigation, route }) {
           }
           style={styles.picker}
         >
-                    <Picker.Item label="Selecione o Tipo..." value="" />       
-           {" "}
+          <Picker.Item label="Selecione o Tipo..." value="" />
           {TIPOS_DROGA.map((t, i) => (
             <Picker.Item key={i} label={t} value={t} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-            <Text style={styles.label}>Apresentação *</Text>     {" "}
+      <Text style={styles.label}>Apresentação *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={droga.apresentacao}
           onValueChange={(value) =>
@@ -408,20 +385,16 @@ export default function Apreensoes({ navigation, route }) {
           }
           style={styles.picker}
         >
-                    <Picker.Item label="Selecione a Apresentação..." value="" />
-                   {" "}
+          <Picker.Item label="Selecione a Apresentação..." value="" />
           {APRESENTACAO_DROGA.map((a, i) => (
             <Picker.Item key={i} label={a} value={a} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-           {" "}
+
       <View style={styles.inlineGroup}>
-               {" "}
         <View style={styles.inlineItem}>
-                    <Text style={styles.label}>Quantidade *</Text>         {" "}
+          <Text style={styles.label}>Quantidade *</Text>
           <TextInput
             style={styles.input}
             placeholder="Quantidade"
@@ -431,13 +404,10 @@ export default function Apreensoes({ navigation, route }) {
               handleChangeItem(setDrogas, index, "quantidade", value)
             }
           />
-                 {" "}
         </View>
-               {" "}
         <View style={styles.inlineItem}>
-                    <Text style={styles.label}>Unidade *</Text>         {" "}
+          <Text style={styles.label}>Unidade *</Text>
           <View style={styles.pickerContainer}>
-                       {" "}
             <Picker
               selectedValue={droga.unidade}
               onValueChange={(value) =>
@@ -445,19 +415,15 @@ export default function Apreensoes({ navigation, route }) {
               }
               style={styles.picker}
             >
-                            <Picker.Item label="Un." value="" />             {" "}
+              <Picker.Item label="Un." value="" />
               {UNIDADES.map((u, i) => (
                 <Picker.Item key={i} label={u} value={u} />
               ))}
-                         {" "}
             </Picker>
-                     {" "}
           </View>
-                 {" "}
         </View>
-             {" "}
       </View>
-            <Text style={styles.label}>Embalagem</Text>     {" "}
+      <Text style={styles.label}>Embalagem</Text>
       <TextInput
         style={styles.input}
         placeholder="Tipo de embalagem"
@@ -467,7 +433,6 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setDrogas, index, "embalagem", value)
         }
       />
-         {" "}
     </ExpandableCard>
   );
 
@@ -481,7 +446,7 @@ export default function Apreensoes({ navigation, route }) {
       onToggle={() => handleToggleCard("Dinheiro", index)}
       onRemove={() => handleRemoveItem(setDinheiro, index, "Dinheiro")}
     >
-            <Text style={styles.label}>Valor Total (R$) *</Text>     {" "}
+      <Text style={styles.label}>Valor Total (R$) *</Text>
       <CurrencyInput
         style={styles.input}
         value={item.valorTotal}
@@ -495,7 +460,7 @@ export default function Apreensoes({ navigation, route }) {
         keyboardType="numeric"
         placeholder="R$ 0,00"
       />
-            <Text style={styles.label}>Observações (Opcional)</Text>     {" "}
+      <Text style={styles.label}>Observações (Opcional)</Text>
       <TextInput
         style={styles.input}
         placeholder="Discriminação de cédulas, moedas..."
@@ -505,7 +470,6 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setDinheiro, index, "observacoes", value)
         }
       />
-         {" "}
     </ExpandableCard>
   );
 
@@ -519,7 +483,7 @@ export default function Apreensoes({ navigation, route }) {
       onToggle={() => handleToggleCard("Objeto", index)}
       onRemove={() => handleRemoveItem(setObjetos, index, "Objeto")}
     >
-            <Text style={styles.label}>Descrição *</Text>     {" "}
+      <Text style={styles.label}>Descrição *</Text>
       <TextInput
         style={styles.input}
         placeholder="Ex: Celular, relógio, jóia"
@@ -529,7 +493,7 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setObjetos, index, "descricao", value)
         }
       />
-            <Text style={styles.label}>Marca/Modelo (Opcional)</Text>     {" "}
+      <Text style={styles.label}>Marca/Modelo (Opcional)</Text>
       <TextInput
         style={styles.input}
         placeholder="Marca/Modelo"
@@ -539,7 +503,7 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setObjetos, index, "marcaModelo", value)
         }
       />
-            <Text style={styles.label}>Identificador (Opcional)</Text>     {" "}
+      <Text style={styles.label}>Identificador (Opcional)</Text>
       <TextInput
         style={styles.input}
         placeholder="IMEI/Serial"
@@ -549,9 +513,8 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setObjetos, index, "identificador", value)
         }
       />
-            <Text style={styles.label}>Situação *</Text>     {" "}
+      <Text style={styles.label}>Situação *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={objeto.situacao}
           onValueChange={(value) =>
@@ -559,16 +522,12 @@ export default function Apreensoes({ navigation, route }) {
           }
           style={styles.picker}
         >
-                    <Picker.Item label="Selecione a Situação..." value="" />   
-               {" "}
+          <Picker.Item label="Selecione a Situação..." value="" />
           {SITUACOES.map((s, i) => (
             <Picker.Item key={i} label={s} value={s} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-         {" "}
     </ExpandableCard>
   );
 
@@ -582,9 +541,8 @@ export default function Apreensoes({ navigation, route }) {
       onToggle={() => handleToggleCard("Veiculo", index)}
       onRemove={() => handleRemoveItem(setVeiculos, index, "Veiculo")}
     >
-            <Text style={styles.label}>Tipo *</Text>     {" "}
+      <Text style={styles.label}>Tipo *</Text>
       <View style={styles.pickerContainer}>
-               {" "}
         <Picker
           selectedValue={veiculo.tipo}
           onValueChange={(value) =>
@@ -592,16 +550,13 @@ export default function Apreensoes({ navigation, route }) {
           }
           style={styles.picker}
         >
-                    <Picker.Item label="Selecione o Tipo..." value="" />       
-           {" "}
+          <Picker.Item label="Selecione o Tipo..." value="" />
           {TIPOS_VEICULO.map((t, i) => (
             <Picker.Item key={i} label={t} value={t} />
           ))}
-                 {" "}
         </Picker>
-             {" "}
       </View>
-            <Text style={styles.label}>Placa *</Text>     {" "}
+      <Text style={styles.label}>Placa *</Text>
       <TextInput
         style={styles.input}
         placeholder="Placa (ou 'sem placa')"
@@ -612,7 +567,7 @@ export default function Apreensoes({ navigation, route }) {
         }
         autoCapitalize="characters"
       />
-            <Text style={styles.label}>Chassi (Opcional)</Text>     {" "}
+      <Text style={styles.label}>Chassi (Opcional)</Text>
       <TextInput
         style={styles.input}
         placeholder="Número do Chassi"
@@ -622,7 +577,7 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setVeiculos, index, "chassi", value)
         }
       />
-            <Text style={styles.label}>Marca/Modelo *</Text>     {" "}
+      <Text style={styles.label}>Marca/Modelo *</Text>
       <TextInput
         style={styles.input}
         placeholder="Ex: Fiat Palio, Honda Biz"
@@ -632,7 +587,7 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setVeiculos, index, "marcaModelo", value)
         }
       />
-            <Text style={styles.label}>Cor *</Text>     {" "}
+      <Text style={styles.label}>Cor *</Text>
       <TextInput
         style={styles.input}
         placeholder="Cor do veículo"
@@ -642,7 +597,6 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setVeiculos, index, "cor", value)
         }
       />
-         {" "}
     </ExpandableCard>
   );
 
@@ -658,7 +612,7 @@ export default function Apreensoes({ navigation, route }) {
         handleRemoveItem(setPoliciaisEnvolvidos, index, "Policial")
       }
     >
-            <Text style={styles.label}>Matrícula *</Text>     {" "}
+      <Text style={styles.label}>Matrícula *</Text>
       <TextInput
         style={styles.input}
         placeholder="Matrícula"
@@ -669,7 +623,7 @@ export default function Apreensoes({ navigation, route }) {
         }
         keyboardType="numeric"
       />
-            <Text style={styles.label}>Usuário *</Text>     {" "}
+      <Text style={styles.label}>Usuário *</Text>
       <TextInput
         style={styles.input}
         placeholder="Nome Completo"
@@ -679,7 +633,7 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setPoliciaisEnvolvidos, index, "nome", value)
         }
       />
-            <Text style={styles.label}>Função na Ocorrência *</Text>     {" "}
+      <Text style={styles.label}>Função na Ocorrência *</Text>
       <TextInput
         style={styles.input}
         placeholder="Ex: Comandante, Condutor, Auxiliar"
@@ -689,125 +643,110 @@ export default function Apreensoes({ navigation, route }) {
           handleChangeItem(setPoliciaisEnvolvidos, index, "funcao", value)
         }
       />
-         {" "}
     </ExpandableCard>
   );
 
   return (
     <SafeAreaView style={styles.fullScreen}>
-           {" "}
       <KeyboardAvoidingView
         style={styles.fullScreen}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={0}
       >
-               {" "}
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
-                   {" "}
           <Text style={styles.sectionTitle}>
-                        Etapa Final: Apreensões e Relato          {" "}
+            Etapa Final: Apreensões e Relato
           </Text>
-                    {/* 2.2 Armas de Fogo */}         {" "}
+          {/* 2.2 Armas de Fogo */}
           <Text style={styles.subSectionTitle}>
-                        🔫 Armas de Fogo ({armas.length})          {" "}
+            🔫 Armas de Fogo ({armas.length})
           </Text>
-                    {armas.map(renderArma)}         {" "}
+          {armas.map(renderArma)}
           <TouchableOpacity
             style={styles.addButton}
             onPress={() => handleAddItem(setArmas, initialStateArma, "Arma")}
           >
-                       {" "}
-            <Text style={styles.addButtonText}>+ Adicionar Arma</Text>         {" "}
+            <Text style={styles.addButtonText}>+ Adicionar Arma</Text>
           </TouchableOpacity>
-                    <View style={styles.separator} />         {" "}
-          {/* 2.3 Munições */}         {" "}
+          <View style={styles.separator} />
+          {/* 2.3 Munições */}
           <Text style={styles.subSectionTitle}>
-                        🟡 Munições ({municoes.length})          {" "}
+            🟡 Munições ({municoes.length})
           </Text>
-                    {municoes.map(renderMunicao)}         {" "}
+          {municoes.map(renderMunicao)}
           <TouchableOpacity
             style={styles.addButton}
             onPress={() =>
               handleAddItem(setMunicoes, initialStateMunicao, "Municao")
             }
           >
-                       {" "}
-            <Text style={styles.addButtonText}>+ Adicionar Munição</Text>       
-             {" "}
+            <Text style={styles.addButtonText}>+ Adicionar Munição</Text>
           </TouchableOpacity>
-                    <View style={styles.separator} />         {" "}
-          {/* 2.4 Drogas */}         {" "}
+          <View style={styles.separator} />
+          {/* 2.4 Drogas */}
           <Text style={styles.subSectionTitle}>
-                        🌿 Drogas ({drogas.length})          {" "}
+            🌿 Drogas ({drogas.length})
           </Text>
-                    {drogas.map(renderDroga)}         {" "}
+          {drogas.map(renderDroga)}
           <TouchableOpacity
             style={styles.addButton}
             onPress={() => handleAddItem(setDrogas, initialStateDroga, "Droga")}
           >
-                       {" "}
-            <Text style={styles.addButtonText}>+ Adicionar Droga</Text>         {" "}
+            <Text style={styles.addButtonText}>+ Adicionar Droga</Text>
           </TouchableOpacity>
-                    <View style={styles.separator} />         {" "}
-          {/* 2.5 Dinheiro */}         {" "}
+          <View style={styles.separator} />
+          {/* 2.5 Dinheiro */}
           <Text style={styles.subSectionTitle}>
-                        💰 Dinheiro ({dinheiro.length})          {" "}
+            💰 Dinheiro ({dinheiro.length})
           </Text>
-                    {dinheiro.map(renderDinheiro)}         {" "}
+          {dinheiro.map(renderDinheiro)}
           <TouchableOpacity
             style={styles.addButton}
             onPress={() =>
               handleAddItem(setDinheiro, initialStateDinheiro, "Dinheiro")
             }
           >
-                       {" "}
-            <Text style={styles.addButtonText}>+ Adicionar Dinheiro</Text>     
-               {" "}
+            <Text style={styles.addButtonText}>+ Adicionar Dinheiro</Text>
           </TouchableOpacity>
-                    <View style={styles.separator} />         {" "}
-          {/* 2.6 Objetos */}         {" "}
+          <View style={styles.separator} />
+          {/* 2.6 Objetos */}
           <Text style={styles.subSectionTitle}>
-                        📱 Objetos ({objetos.length})          {" "}
+            📱 Objetos ({objetos.length})
           </Text>
-                    {objetos.map(renderObjeto)}         {" "}
+          {objetos.map(renderObjeto)}
           <TouchableOpacity
             style={styles.addButton}
             onPress={() =>
               handleAddItem(setObjetos, initialStateObjeto, "Objeto")
             }
           >
-                       {" "}
-            <Text style={styles.addButtonText}>+ Adicionar Objeto</Text>       
-             {" "}
+            <Text style={styles.addButtonText}>+ Adicionar Objeto</Text>
           </TouchableOpacity>
-                    <View style={styles.separator} />         {" "}
-          {/* 2.7 Veículos */}         {" "}
+          <View style={styles.separator} />
+          {/* 2.7 Veículos */}
           <Text style={styles.subSectionTitle}>
-                        🚗 Veículos ({veiculos.length})          {" "}
+            🚗 Veículos ({veiculos.length})
           </Text>
-                    {veiculos.map(renderVeiculo)}         {" "}
+          {veiculos.map(renderVeiculo)}
           <TouchableOpacity
             style={styles.addButton}
             onPress={() =>
               handleAddItem(setVeiculos, initialStateVeiculo, "Veiculo")
             }
           >
-                       {" "}
-            <Text style={styles.addButtonText}>+ Adicionar Veículo</Text>       
-             {" "}
+            <Text style={styles.addButtonText}>+ Adicionar Veículo</Text>
           </TouchableOpacity>
-                    <View style={styles.separator} />         {" "}
-          {/* 2.8 Policiais Envolvidos */}         {" "}
+          <View style={styles.separator} />
+          {/* 2.8 Policiais Envolvidos */}
           <Text style={styles.subSectionTitle}>
-                        👮 Policiais Envolvidos ({policiaisEnvolvidos.length})  
-                   {" "}
+            👮 Policiais Envolvidos ({policiaisEnvolvidos.length})
           </Text>
-                    {policiaisEnvolvidos.map(renderPolicial)}         {" "}
+          {policiaisEnvolvidos.map(renderPolicial)}
           <TouchableOpacity
             style={styles.addButton}
             onPress={() =>
@@ -818,14 +757,11 @@ export default function Apreensoes({ navigation, route }) {
               )
             }
           >
-                       {" "}
-            <Text style={styles.addButtonText}>+ Adicionar Policial</Text>     
-               {" "}
+            <Text style={styles.addButtonText}>+ Adicionar Policial</Text>
           </TouchableOpacity>
-                    <View style={styles.separator} />         {" "}
-          {/* 2.9 Histórico / Narrativa */}         {" "}
+          <View style={styles.separator} />
+          {/* 2.9 Histórico / Narrativa */}
           <Text style={styles.subSectionTitle}>📖 Histórico / Narrativa *</Text>
-                   {" "}
           <TextInput
             style={styles.textarea}
             placeholder="Descreva o relato técnico da ocorrência (obrigatório)"
@@ -836,17 +772,12 @@ export default function Apreensoes({ navigation, route }) {
             textAlignVertical="top"
             numberOfLines={8}
           />
-                    {/* Botão de Navegação Final / Gerar Relatório */}         {" "}
+          {/* Botão de Navegação Final / Gerar Relatório */}
           <TouchableOpacity style={styles.button} onPress={handleFinalizar}>
-                       {" "}
-            <Text style={styles.buttonText}>GERAR RELATÓRIO ABNT (IA)</Text>   
-                 {" "}
+            <Text style={styles.buttonText}>GERAR RELATÓRIO ABNT (IA)</Text>
           </TouchableOpacity>
-                 {" "}
         </ScrollView>
-             {" "}
       </KeyboardAvoidingView>
-         {" "}
     </SafeAreaView>
   );
 }
@@ -865,29 +796,30 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
   },
   sectionTitle: {
-    color: COLORS.TEXT,
-    fontSize: 22,
+    color: COLORS.PRIMARY,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.SUB_TEXT,
+    borderBottomWidth: 2,
+    borderBottomColor: COLORS.CARD_BORDER,
     paddingBottom: 10,
+    textAlign: "center",
   },
   subSectionTitle: {
-    color: COLORS.PRIMARY,
+    color: COLORS.TEXT,
     fontSize: 18,
     fontWeight: "bold",
-    marginTop: 20,
+    marginTop: 15,
     marginBottom: 10,
   },
   label: {
     color: COLORS.TEXT,
     marginBottom: 5,
-    fontWeight: "bold",
+    fontWeight: "600",
     fontSize: 14,
   },
   input: {
-    backgroundColor: COLORS.BACKGROUND,
+    backgroundColor: COLORS.CARD,
     color: COLORS.TEXT,
     borderRadius: 8,
     padding: 10,
@@ -901,43 +833,34 @@ const styles = StyleSheet.create({
     color: COLORS.TEXT,
     borderRadius: 8,
     padding: 10,
-    marginBottom: 15,
+    marginBottom: 20,
     borderWidth: 1,
     borderColor: COLORS.INPUT_BORDER,
     fontSize: 16,
     minHeight: 150,
   },
   pickerContainer: {
-    backgroundColor: COLORS.BACKGROUND,
-    borderRadius: 10,
+    backgroundColor: COLORS.CARD,
+    borderRadius: 8,
     marginBottom: 15,
     height: 45,
     justifyContent: "center",
     borderWidth: 1,
     borderColor: COLORS.INPUT_BORDER,
-    overflow: "hidden",
   },
   picker: {
     color: COLORS.TEXT,
     backgroundColor: "transparent",
     fontSize: 16,
-    ...Platform.select({
-      ios: { height: 55 },
-      android: { height: 55 },
-    }),
+    height: 55,
   },
   expandableCardContainer: {
-    backgroundColor: COLORS.CARD,
-    borderRadius: 10,
     marginBottom: 10,
-    borderLeftWidth: 5,
-    borderLeftColor: COLORS.PRIMARY,
+    backgroundColor: COLORS.CARD,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLORS.CARD_BORDER,
     overflow: "hidden",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2,
   },
   expandableHeader: {
     flexDirection: "row",
@@ -949,66 +872,60 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.CARD_BORDER,
   },
   itemTitle: {
+    color: COLORS.PRIMARY,
     fontSize: 16,
     fontWeight: "bold",
-    color: COLORS.TEXT,
-    flexShrink: 1,
   },
   collapseIcon: {
-    fontSize: 16,
-    fontWeight: "bold",
     color: COLORS.PRIMARY,
-    marginLeft: 10,
+    fontSize: 14,
   },
   expandableContent: {
     padding: 15,
-    paddingTop: 5,
+  },
+  removeButton: {
+    backgroundColor: COLORS.DANGER,
+    padding: 10,
+    borderRadius: 6,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  removeButtonText: {
+    color: COLORS.BUTTON_TEXT,
+    fontWeight: "bold",
+    fontSize: 14,
   },
   addButton: {
     backgroundColor: COLORS.SECONDARY,
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
-    marginBottom: 10,
     marginTop: 5,
+    marginBottom: 10,
   },
   addButtonText: {
     color: COLORS.BUTTON_TEXT,
+    fontWeight: "bold",
     fontSize: 16,
-    fontWeight: "bold",
-  },
-  removeButton: {
-    backgroundColor: COLORS.DANGER,
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
-    marginTop: 15,
-  },
-  removeButtonText: {
-    color: COLORS.BUTTON_TEXT,
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  inlineGroup: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 5,
-  },
-  inlineItem: {
-    flex: 1,
-    marginRight: 10,
   },
   separator: {
     height: 1,
     backgroundColor: COLORS.CARD_BORDER,
     marginVertical: 15,
   },
+  inlineGroup: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  inlineItem: {
+    width: "48%",
+  },
   button: {
     backgroundColor: COLORS.PRIMARY,
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
-    marginTop: 25,
+    marginTop: 30,
     marginBottom: 20,
   },
   buttonText: {
