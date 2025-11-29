@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react"; 
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  TextInput, 
 } from "react-native";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -32,9 +33,24 @@ export default function FinalRelatorio({ navigation, route }) {
   const todosOsDados = route.params || {};
   const apreensoes = todosOsDados.apreensoes || {};
   const tokenRelatorio = apreensoes.tokenRelatorio || "TOKEN-NAO-GERADO";
+  
+  const relatorioIAOriginal = todosOsDados.relatorioIA || apreensoes.historico || "Nenhum relatório automático gerado.";
+
+  const [relatorioEditavel, setRelatorioEditavel] = useState(relatorioIAOriginal);
+
 
   const handleFinalizar = () => {
-    console.log("Relatório Salvo:", todosOsDados);
+    const dadosFinaisParaSalvar = {
+        ...todosOsDados,
+        relatorioFinal: relatorioEditavel, 
+        apreensoes: { 
+            ...apreensoes,
+            historico: relatorioEditavel,
+        }
+    };
+
+    console.log("Relatório Salvo:", dadosFinaisParaSalvar);
+
     navigation.popToTop();
 
     setTimeout(() => {
@@ -44,6 +60,7 @@ export default function FinalRelatorio({ navigation, route }) {
       );
     }, 100);
   };
+  
   const getTotalApreensoes = () => {
     return (
       (apreensoes.armas ? apreensoes.armas.length : 0) +
@@ -69,10 +86,12 @@ export default function FinalRelatorio({ navigation, route }) {
             name="security"
             size={24}
             color={COLORS.BACKGROUND}
-          />
+            />
           <Text style={styles.tokenLabel}>TOKEN ÚNICO DO RELATÓRIO</Text>
           <Text style={styles.tokenValue}>{tokenRelatorio}</Text>
         </View>
+        
+        {/* Sumário do Registro */}
         <View style={styles.summaryCard}>
           <Text style={styles.cardTitle}>Sumário do Registro</Text>
           <SummaryItem
@@ -95,10 +114,20 @@ export default function FinalRelatorio({ navigation, route }) {
             label="Policiais Envolvidos"
             value={apreensoes.policiais ? apreensoes.policiais.length : 0}
           />
-          <Text style={styles.historicoTitle}>Histórico / Narrativa:</Text>
-          <Text style={styles.historicoText}>
-            {apreensoes.historico || "Nenhum histórico detalhado fornecido."}
+          
+          <Text style={styles.historicoTitle}>
+            Relatório Gerado (Revisar e Editar):
           </Text>
+          
+          {/* ⚠️ NOVO: Campo de texto editável com o relatório da IA */}
+          <TextInput
+            style={styles.relatorioInput} 
+            value={relatorioEditavel}
+            onChangeText={setRelatorioEditavel}
+            multiline
+            numberOfLines={10}
+            placeholder="Relatório automático falhou ou está sendo preenchido manualmente."
+          />
         </View>
 
         <Text style={styles.noteText}>
@@ -211,15 +240,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 5,
   },
-  historicoText: {
+  relatorioInput: { 
     fontSize: 15,
-    fontStyle: "italic",
     color: COLORS.TEXT,
     backgroundColor: COLORS.BACKGROUND,
     padding: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: COLORS.PRIMARY,
+    textAlignVertical: 'top',
+    minHeight: 200, 
   },
   noteText: {
     fontSize: 14,
